@@ -1,0 +1,24 @@
+{
+    "name": "typomedia/ziphp",
+    "description": "ZIP Console Packager",
+    "license": "MIT",
+    "require": {
+        "symfony/console": "^3.4",
+        "symfony/filesystem": "^3.4",
+        "ext-zip": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ziphp\\": "src/ziphp"
+        }
+    },
+    "scripts": {
+        "fix": [
+            "phpcbf --standard=PSR1,PSR2,PSR12 src"
+        ],
+        "check": [
+            "phpcs --standard=PSR1,PSR2,PSR12 --error-severity=1 --warning-severity=8 src",
+            "phpmd src text codesize, controversial, design, naming, unusedcode"
+        ]
+    }
+}

@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use ziphp\Command;
+use Symfony\Component\Console\Application;
+
+$application = new Application('ziphp', '1.0.0');
+$application->add(new Command\CompressCommand());
+$application->add(new Command\ExtractCommand());
+$application->run();
