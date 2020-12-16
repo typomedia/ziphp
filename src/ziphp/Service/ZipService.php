@@ -42,6 +42,8 @@ class ZipService extends ZipArchive
                 // Ignore "." and ".." folders
                 if (in_array(substr($file, strrpos($file, '/') + 1), array('.', '..'))) {
                     continue;
+                } else {
+                    echo $file . PHP_EOL;
                 }
 
                 if (is_dir($file) === true) {
