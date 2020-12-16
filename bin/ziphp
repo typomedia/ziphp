@@ -6,7 +6,10 @@ require __DIR__.'/../vendor/autoload.php';
 use ziphp\Command;
 use Symfony\Component\Console\Application;
 
-$application = new Application('ziphp', '1.0.0');
+ini_set('memory_limit', -1);
+ini_set('max_execution_time', 0);
+
+$application = new Application('ziphp', '1.0.1');
 $application->add(new Command\CompressCommand());
 $application->add(new Command\ExtractCommand());
 $application->run();
