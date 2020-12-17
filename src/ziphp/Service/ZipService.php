@@ -38,14 +38,13 @@ class ZipService extends ZipArchive
 
         if (is_dir($source)) {
 
-            $source = rtrim($source, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-
-            $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+            $dir = rtrim($source, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+            $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::SELF_FIRST);
 
             foreach ($files as $file) {
-                $local = substr($file, strlen($source));
+                $local = substr($file, strlen($dir));
 
-                // Ignore "." and ".." folders
+                // Skip dots
                 if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), ['.', '..'])) {
                     continue;
                 } else {
