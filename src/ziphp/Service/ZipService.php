@@ -58,7 +58,7 @@ class ZipService extends ZipArchive
             }
             
         } elseif (is_file($source)) {
-            $zip->addFile(basename($source));
+            $zip->addFile($source, basename($source));
         }
 
         return $zip->close();
