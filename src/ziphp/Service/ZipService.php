@@ -38,26 +38,22 @@ class ZipService extends ZipArchive
 
         if (is_dir($source)) {
 
-            $dir = rtrim($source, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+            $dir = rtrim($source, DIRECTORY_SEPARATOR);
             $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::SELF_FIRST);
 
             foreach ($files as $file) {
+
                 $local = substr($file, strlen($dir));
 
                 // Skip dots
-                if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), ['.', '..'])) {
+                if (in_array($file->getFilename(), ['.', '..'])) {
                     continue;
-                } else {
-                    echo $file . PHP_EOL;
                 }
 
-                if (is_dir($file)) {
-                    $zip->addEmptyDir($local);
-                }
+                print $file . PHP_EOL;
 
-                if (is_file($file)) {
-                    $zip->addFile($file, $local);
-                }
+                $file->isDir() ? $zip->addEmptyDir($local) : null;
+                $file->isFile() ? $zip->addFile($file, $local) : null;
             }
             
         } elseif (is_file($source)) {
