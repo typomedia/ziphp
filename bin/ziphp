@@ -9,7 +9,7 @@ use Symfony\Component\Console\Application;
 ini_set('memory_limit', -1);
 ini_set('max_execution_time', 0);
 
-$application = new Application('ziphp', '1.1.2');
+$application = new Application('ziphp', '1.1.3');
 $application->add(new Command\CompressCommand());
 $application->add(new Command\ExtractCommand());
 $application->run();

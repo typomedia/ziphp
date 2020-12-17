@@ -2,6 +2,8 @@
 
 namespace ziphp\Service;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use \ZipArchive;
 
 /**
@@ -36,13 +38,15 @@ class ZipService extends ZipArchive
 
         if (is_dir($source)) {
 
-            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+            $source = rtrim($source, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+
+            $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
 
             foreach ($files as $file) {
                 $local = substr($file, strlen($source));
 
                 // Ignore "." and ".." folders
-                if (in_array(substr($file, strrpos($file, '/') + 1), ['.', '..'])) {
+                if (in_array(substr($file, strrpos($file, DIRECTORY_SEPARATOR) + 1), ['.', '..'])) {
                     continue;
                 } else {
                     echo $file . PHP_EOL;
