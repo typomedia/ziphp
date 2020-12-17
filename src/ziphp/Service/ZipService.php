@@ -43,7 +43,7 @@ class ZipService extends ZipArchive
 
             foreach ($files as $file) {
 
-                $local = substr($file, strlen($dir));
+                $local = basename($dir) . substr($file, strlen($dir));
 
                 // Skip dots
                 if (in_array($file->getFilename(), ['.', '..'])) {
@@ -55,7 +55,7 @@ class ZipService extends ZipArchive
                 $file->isDir() ? $zip->addEmptyDir($local) : null;
                 $file->isFile() ? $zip->addFile($file, $local) : null;
             }
-            
+
         } elseif (is_file($source)) {
             $local = basename($source);
             $zip->addFile($source, $local);
